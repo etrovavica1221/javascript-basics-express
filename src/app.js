@@ -1,6 +1,10 @@
 /* eslint-disable radix */
 const express = require('express');
 
+const app = express();
+
+app.use(express.json());
+
 const {
   sayHello,
   uppercase,
@@ -10,11 +14,22 @@ const {
   firstCharacters,
 } = require('./lib/strings');
 
-const { add, subtract, multiply, divide, remainder } = require('./lib/numbers');
+const { 
+  add, 
+  subtract, 
+  multiply, 
+  divide, 
+  remainder,
+} = require('./lib/numbers');
 
-const app = express();
+const {
+  negate,
+  truthiness,
+  isOdd,
+  startsWith
+} = require('./lib/booleans')
 
-// strings
+// STRINGS
 
 // sayHello
 
@@ -51,14 +66,14 @@ app.get('/strings/first-characters/:str', (req, res) => {
   }
 });
 
-// numbers
+// NUMBERS
 
 // add
 
 app.get('/numbers/add/:a/and/:b', (req, res) => {
   const a = parseInt(req.params.a);
   const b = parseInt(req.params.b);
-  if (Number.isNaN(a) && Number.isNaN(b)) {
+  if (isNaN(a) && isNaN(b)) {
     res.status(400).json({ error: 'Parameters must be valid numbers.' });
   } else {
     res.status(200).json({ result: add(a, b) });
@@ -70,7 +85,7 @@ app.get('/numbers/add/:a/and/:b', (req, res) => {
 app.get('/numbers/subtract/:a/from/:b', (req, res) => {
   const a = parseInt(req.params.a);
   const b = parseInt(req.params.b);
-  if (Number.isNaN(a) && Number.isNaN(b)) {
+  if (isNaN(a) && isNaN(b)) {
     res.status(400).json({ error: 'Parameters must be valid numbers.' });
   } else {
     res.status(200).json({ result: subtract(b, a) });
@@ -89,7 +104,7 @@ app.post('/numbers/multiply', (req, res) => {
   const a = parseInt(req.body.a);
   const b = parseInt(req.body.b);
 
-  if (Number.isNaN(a) && Number.isNaN(b)) {
+  if (isNaN(a) && isNaN(b)) {
     res.status(400).send({ error: 'Parameters "a" and "b" must be valid numbers.' });
   } else {
     res.status(200).send({ result: multiply(a, b) });
@@ -112,7 +127,7 @@ app.post('/numbers/divide', (req, res) => {
   const a = parseInt(req.body.a);
   const b = parseInt(req.body.b);
 
-  if (Number.isNaN(a) && Number.isNaN(b)) {
+  if (isNaN(a) && isNaN(b)) {
     res.status(400).send({ error: 'Parameters "a" and "b" must be valid numbers.' });
   } else {
     res.status(200).send({ result: divide(a, b) });
@@ -135,10 +150,52 @@ app.post('/numbers/remainder', (req, res) => {
   const a = parseInt(req.body.a);
   const b = parseInt(req.body.b);
 
-  if (Number.isNaN(a) && Number.isNaN(b)) {
+  if (isNaN(a) && isNaN(b)) {
     res.status(400).send({ error: 'Parameters must be valid numbers.' });
   } else {
     res.status(200).send({ result: remainder(a, b) });
+  }
+});
+
+// BOOLEANS
+
+// negate
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/negate', (req, res) => {
+  res.status(200).send({ result: negate(req.body.value) });
+});
+
+// truthiness
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/truthiness', (req, res) => {
+  res.status(200).send({ result: truthiness(req.body.value) });
+});
+
+// is-odd
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.get('/booleans/is-odd/:number', (req, res) => {
+  if (isNaN(req.params.number)) {
+    res.status(400).send({ error: 'Parameter must be a number.' });
+  } else {
+    res.status(200).send({ result: isOdd(parseInt(req.params.number)) });
+  }
+});
+
+// startsWith
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.get('/booleans/:string/starts-with/:character', (req, res) => {
+  if (req.params.character.length > 1) {
+    res.status(400).send({ error: 'Parameter "character" must be a single character.' });
+  } else {
+  res.status(200).send({ result: startsWith(req.params.character, req.params.string) });
   }
 });
 
