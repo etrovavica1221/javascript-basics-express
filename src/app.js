@@ -126,7 +126,9 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/numbers/remainder', (req, res) => {
   if (req.body.b === 0 || req.body.b === '0') {
     res.status(400).send({ error: 'Unable to divide by 0.' });
-  } else if (!req.body.a || req.body.b) {
+  } else if (req.body.a === 0 || req.body.b === '0') {
+    res.status(200).send({ result: 0 });
+  } else if (!req.body.a || !req.body.b) {
     res.status(400).send({ error: 'Parameters "a" and "b" are required.' });
   }
 
@@ -134,7 +136,7 @@ app.post('/numbers/remainder', (req, res) => {
   const b = parseInt(req.body.b);
 
   if (Number.isNaN(a) && Number.isNaN(b)) {
-    res.status(400).send({ error: 'Parameters "a" and "b" must be valid numbers.' });
+    res.status(400).send({ error: 'Parameters must be valid numbers.' });
   } else {
     res.status(200).send({ result: remainder(a, b) });
   }
