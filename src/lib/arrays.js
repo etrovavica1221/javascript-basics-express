@@ -22,6 +22,7 @@ const addToArray2 = (element, array) => {
 
 const removeNthElement = (index, array) => {
   array.splice(index, 1);
+  return array;
 };
 
 const numbersToStrings = numbers => {
@@ -41,7 +42,7 @@ const onlyEven = numbers => {
 };
 
 const removeNthElement2 = (index, array) => {
-  return [...array.slice(0, index), ...array.slice(index + 1)];
+  return [...array.slice(0, index), ...array.slice(index+1, array.length)];
 };
 
 const elementsStartingWithAVowel = strings => {

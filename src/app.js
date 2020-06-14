@@ -27,7 +27,15 @@ const {
   truthiness,
   isOdd,
   startsWith
-} = require('./lib/booleans')
+} = require('./lib/booleans');
+
+const {
+  getNthElement,
+  arrayToCSVString,
+  addToArray2,
+  elementsStartingWithAVowel,
+  removeNthElement,
+} = require('./lib/arrays')
 
 // STRINGS
 
@@ -177,8 +185,6 @@ app.post('/booleans/truthiness', (req, res) => {
 
 // is-odd
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.get('/booleans/is-odd/:number', (req, res) => {
   if (isNaN(req.params.number)) {
     res.status(400).send({ error: 'Parameter must be a number.' });
@@ -189,13 +195,57 @@ app.get('/booleans/is-odd/:number', (req, res) => {
 
 // startsWith
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 app.get('/booleans/:string/starts-with/:character', (req, res) => {
   if (req.params.character.length > 1) {
     res.status(400).send({ error: 'Parameter "character" must be a single character.' });
   } else {
   res.status(200).send({ result: startsWith(req.params.character, req.params.string) });
+  }
+});
+
+//ARRAYS
+
+// getNthElement
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/element-at-index/:index', (req, res) => {
+  res.status(200).send({ result: getNthElement(req.params.index, req.body.array) });
+});
+
+// arrayToString
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/to-string', (req, res) => {
+  res.status(200).send({ result: arrayToCSVString(req.body.array) });
+});
+
+// addToArray2
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/append', (req, res) => {
+  res.status(200).send({ result: addToArray2(req.body.value, req.body.array) });
+});
+
+// elementsStartingWithAVowel
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/starts-with-vowel', (req, res) => {
+  res.status(200).send({ result: elementsStartingWithAVowel(req.body.array) });
+});
+
+// removeNthElement
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/remove-element', (req, res) => {
+  if (Object.keys(req.query).length === 0) {
+    res.status(200).send({ result: req.body.array.slice(1)});
+  } else {
+    res.status(200).send({ result: removeNthElement(req.query.index, req.body.array)});
   }
 });
 
