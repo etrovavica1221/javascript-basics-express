@@ -20,6 +20,12 @@ const {
   multiply, 
   divide, 
   remainder,
+  power,
+  round,
+  roundUp,
+  roundDown,
+  absolute,
+  quotient,
 } = require('./lib/numbers');
 
 const {
@@ -164,6 +170,54 @@ app.post('/numbers/remainder', (req, res) => {
     res.status(200).send({ result: remainder(a, b) });
   }
 });
+
+// power
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/numbers/power', (req, res) => {
+  res.status(200).send({ result: power(req.body.a, req.body.b) });
+}); 
+
+// round
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/numbers/round', (req, res) => {
+  res.status(200).send({ result: round(req.body.a) });
+}); 
+
+// roundUp
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/numbers/roundUp', (req, res) => {
+  res.status(200).send({ result: roundUp(req.body.a) });
+}); 
+
+// roundDown
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/numbers/roundDown', (req, res) => {
+  res.status(200).send({ result: roundDown(req.body.a) });
+}); 
+
+// absolute
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/numbers/absolute', (req, res) => {
+  res.status(200).send({ result: absolute(req.body.a) });
+}); 
+
+// quotient
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/numbers/quotient', (req, res) => {
+  res.status(200).send({ result: quotient(req.body.a, req.body.b) });
+}); 
 
 // BOOLEANS
 

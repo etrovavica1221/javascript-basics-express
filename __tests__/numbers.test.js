@@ -257,4 +257,82 @@ describe('/numbers', () => {
         });
     });
   });
+
+  describe('POST /power', () => {
+    it('powers a number by another number', done => {
+      request(app)
+        .post('/numbers/power')
+        .send({ a: 3, b: 2 })
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ result: 9 });
+          done();
+        });
+    });
+  });
+
+  describe('POST /round', () => {
+    it('returns the value of a number rounded to the nearest integer', done => {
+      request(app)
+        .post('/numbers/round')
+        .send({ a: 3.1763 })
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ result: 3 });
+          done();
+        });
+    });
+  });
+
+  describe('POST /roundUp', () => {
+    it('returns the value of a number rounded to the next largest intenger', done => {
+      request(app)
+        .post('/numbers/roundUp')
+        .send({ a: 7.89 })
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ result: 8 });
+          done();
+        });
+    });
+  });
+
+  describe('POST /roundDown', () => {
+    it('returns the value of a number rounded to the largest integer less than or equal to a given number', done => {
+      request(app)
+        .post('/numbers/roundDown')
+        .send({ a: 7.89 })
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ result: 7 });
+          done();
+        });
+    });
+  });
+
+  describe('POST /absolute', () => {
+    it('returns the absolute value of a number', done => {
+      request(app)
+        .post('/numbers/absolute')
+        .send({ a: -7.89 })
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ result: 7.89 });
+          done();
+        });
+    });
+  });
+
+  describe('POST /quotient', () => {
+    it('returns quotient', done => {
+      request(app)
+        .post('/numbers/quotient')
+        .send({ a: 7, b: 4 })
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({ result: 1 });
+          done();
+        });
+    });
+  });
 });
