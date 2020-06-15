@@ -1,22 +1,12 @@
 # JavaScript Basics in Express
 
-## Getting started
+This exercise is to practice Express.
 
-Ensure your Visual Studio Code application is up to date, and that you have the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) installed and enabled.
+## Description
 
-Run the commands below inside your `Projects` folder.
-
-```bash
-git clone git@github.com:MCRcodes/javascript-basics-express.git
-cd your-project-folder-name
-npm install
-```
-
-## Copy over your JavaScript Basics code
-
-:rotating_light: **Important!**
-
-This exercise makes use of your previous `javascript-basics` code. Copy the files from that project's `src/` folder into a new `lib/` directory in this repository's `src` directory. You should end up with the following file structure in this project:
+- "__test__" folder contains tests.
+- "src" contains "lib" directory. The folder has files with functions, which are required to pass the tests. 
+- In "app.js" you can find the solutions for the tests.
 
 ```
 src
@@ -29,10 +19,10 @@ src
     └── strings.js
 ```
 
-## Running tests
+## Contributing
 
-You can run tests with the `npm test` command.
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-## Remember: READMEs are important!
+## Author
 
-When you're finished, be sure to rewrite this one so it's more specific to your project.
+Created by Viktoriia Petrova as part of <a href="https://www.manchestercodes.com" target="_blank">Manchester Codes</a> learning process.
