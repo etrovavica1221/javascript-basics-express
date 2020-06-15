@@ -7,11 +7,11 @@ const both = (a, b) => {
 };
 
 const either = (a, b) => {
-  return a || b;
+  return (a || b);
 };
 
 const none = (a, b) => {
-    if(a === false && b === false) {
+  if(a === false && b === false) {
 	return true;
   } else {
 	return false;
@@ -19,7 +19,7 @@ const none = (a, b) => {
 };
 
 const one = (a, b) => {
-    if(a === true && b === false || b === true && a === false) {
+  if(a === true && b === false || b === true && a === false) {
 	return true;
   } else {
 	return false;

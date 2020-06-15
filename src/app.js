@@ -30,9 +30,20 @@ const {
 
 const {
   negate,
+  both,
+  either,
+  none,
+  one,
   truthiness,
+  isEqual,
+  isGreaterThan,
+  isLessThanOrEqualTo,
   isOdd,
-  startsWith
+  isEven,
+  isSquare,
+  startsWith,
+  containsVowels,
+  isLowerCase
 } = require('./lib/booleans');
 
 const {
@@ -247,6 +258,16 @@ app.get('/booleans/is-odd/:number', (req, res) => {
   }
 });
 
+// is-even
+
+app.get('/booleans/is-even/:number', (req, res) => {
+  if (isNaN(req.params.number)) {
+    res.status(400).send({ error: 'Parameter must be a number.' });
+  } else {
+    res.status(200).send({ result: isEven(parseInt(req.params.number)) });
+  }
+});
+
 // startsWith
 
 app.get('/booleans/:string/starts-with/:character', (req, res) => {
@@ -255,6 +276,84 @@ app.get('/booleans/:string/starts-with/:character', (req, res) => {
   } else {
   res.status(200).send({ result: startsWith(req.params.character, req.params.string) });
   }
+});
+
+// both
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/both', (req, res) => {
+  res.status(200).send({ result: both(req.body.a, req.body.b) });
+});
+
+// either
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/either', (req, res) => {
+  res.status(200).send({ result: either(req.body.a, req.body.b) });
+});
+
+// none
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/none', (req, res) => {
+  res.status(200).send({ result: none(req.body.a, req.body.b) });
+});
+
+// one
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/one', (req, res) => {
+  res.status(200).send({ result: one(req.body.a, req.body.b) });
+});
+
+// isEqual
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/isEqual', (req, res) => {
+  res.status(200).send({ result: isEqual(req.body.a, req.body.b) });
+});
+
+// isGreaterThan
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/isGreaterThan', (req, res) => {
+  res.status(200).send({ result: isGreaterThan(req.body.a, req.body.b) });
+});
+
+// isLessThanOrEqualTo
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/booleans/isLessThanOrEqualTo', (req, res) => {
+  res.status(200).send({ result: isLessThanOrEqualTo(req.body.a, req.body.b) });
+});
+
+// isSquare
+
+app.get('/booleans/isSquare/:number', (req, res) => {
+  if (isNaN(req.params.number)) {
+    res.status(400).send({ error: 'Parameter must be a number.' });
+  } else {
+    res.status(200).send({ result: isSquare(parseInt(req.params.number)) });
+  }
+});
+
+// containsVowels
+
+app.get('/booleans/containsVowels/:string', (req, res) => {
+  res.status(200).send({ result: containsVowels(req.params.string) });
+});
+
+// isLowerCase 
+
+app.get('/booleans/isLowerCase/:string', (req, res) => {
+  res.status(200).send({ result: isLowerCase(req.params.string) });
 });
 
 //ARRAYS
