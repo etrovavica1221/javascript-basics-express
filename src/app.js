@@ -49,9 +49,19 @@ const {
 const {
   getNthElement,
   arrayToCSVString,
+  csvStringToArray,
+  addToArray,
   addToArray2,
-  elementsStartingWithAVowel,
   removeNthElement,
+  numbersToStrings,
+  uppercaseWordsInArray,
+  reverseWordsInArray,
+  onlyEven,
+  removeNthElementNewArray,
+  elementsStartingWithAVowel,
+  removeSpaces,
+  sumNumbers,
+  sortByLastLetter
 } = require('./lib/arrays')
 
 // STRINGS
@@ -374,12 +384,28 @@ app.post('/arrays/to-string', (req, res) => {
   res.status(200).send({ result: arrayToCSVString(req.body.array) });
 });
 
+// csvStringToArray
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/to-array', (req, res) => {
+  res.status(200).send({ result: csvStringToArray(req.body.string) });
+});
+
 // addToArray2
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.post('/arrays/append', (req, res) => {
   res.status(200).send({ result: addToArray2(req.body.value, req.body.array) });
+});
+
+// addToArray
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/add', (req, res) => {
+  res.status(200).send({ result: addToArray(req.body.value, req.body.array) });
 });
 
 // elementsStartingWithAVowel
@@ -396,10 +422,74 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.post('/arrays/remove-element', (req, res) => {
   if (Object.keys(req.query).length === 0) {
-    res.status(200).send({ result: req.body.array.slice(1)});
+    res.status(200).send({ result: req.body.array.slice(1) });
   } else {
     res.status(200).send({ result: removeNthElement(req.query.index, req.body.array)});
   }
+});
+
+// removeNthElementNewArray
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/removeNthElementNewArray', (req, res) => {
+  res.status(200).send({ result: removeNthElementNewArray(req.query.index, req.body.array)});
+});
+
+// numbersToStrings
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/numbersToStrings', (req, res) => {
+  res.status(200).send({ result: numbersToStrings(req.body.array) });
+});
+
+// uppercaseWordsInArray
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/uppercaseWordsInArray', (req, res) => {
+  res.status(200).send({ result: uppercaseWordsInArray(req.body.array) });
+});
+
+// reverseWordsInArray 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/reverseWordsInArray', (req, res) => {
+  res.status(200).send({ result: reverseWordsInArray(req.body.array) });
+});
+
+// onlyEven
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/onlyEven', (req, res) => {
+  res.status(200).send({ result: onlyEven(req.body.array) });
+});
+
+// removeSpaces
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/removeSpaces', (req, res) => {
+  res.status(200).send({ result: removeSpaces(req.body.string) });
+});
+
+// sumNumbers
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/sumNumbers', (req, res) => {
+  res.status(200).send({ result: sumNumbers(req.body.array) });
+});
+
+// sortByLastLetter
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.post('/arrays/sortByLastLetter', (req, res) => {
+  res.status(200).send({ result: sortByLastLetter(req.body.array) });
 });
 
 module.exports = app;

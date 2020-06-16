@@ -12,6 +12,7 @@ const csvStringToArray = string => {
 
 const addToArray = (element, array) => {
   array.push(element);
+  return array;
 };
 
 const addToArray2 = (element, array) => {
@@ -41,8 +42,10 @@ const onlyEven = numbers => {
   return numbers.filter(number => number%2 === 0);
 };
 
-const removeNthElement2 = (index, array) => {
-  return [...array.slice(0, index), ...array.slice(index+1, array.length)];
+const removeNthElementNewArray = (index, array) => {
+  const arr = [...array];
+  arr.splice(index, 1);
+  return arr;
 };
 
 const elementsStartingWithAVowel = strings => {
@@ -93,7 +96,7 @@ module.exports = {
   uppercaseWordsInArray,
   reverseWordsInArray,
   onlyEven,
-  removeNthElement2,
+  removeNthElementNewArray,
   elementsStartingWithAVowel,
   removeSpaces,
   sumNumbers,
